@@ -1,11 +1,5 @@
 pipeline {
     agent any
-        environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerid')
-        dockerHubUser='praveenkumar2504'
-        dockerHubPassword='Praveen@2504'
-    }
-    
     stages{
         stage('Code'){
             steps{
@@ -19,9 +13,10 @@ pipeline {
         }
         stage('Push'){
             steps{
-                
-        	     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                withCredentials([usernamePassword(credentialsId: 'dockerid', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+                sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
                  sh 'docker push praveenkumar2504/task:latest'
+            }     
 
             }
         }
