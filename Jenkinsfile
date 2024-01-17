@@ -1,5 +1,10 @@
 pipeline {
-    agent { label 'node-agent' }
+    agent any
+        environment {
+        DOCKERHUB_CREDENTIALS = credentials('docker-id')
+        dockerHubUser='praveenkumar2504'
+        dockerHubPassword='Praveen@2504'
+    }
     
     stages{
         stage('Code'){
@@ -9,15 +14,15 @@ pipeline {
         }
         stage('Build and Test'){
             steps{
-                sh 'docker build . -t trainwithshubham/node-todo-test:latest'
+                sh 'docker build . -t praveenkumar2504/myimage:latest'
             }
         }
         stage('Push'){
             steps{
-                withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+                
         	     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                 sh 'docker push trainwithshubham/node-todo-test:latest'
-                }
+                 sh 'docker push praveenkumar2504/myimage:latest'
+
             }
         }
         stage('Deploy'){
