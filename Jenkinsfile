@@ -14,14 +14,14 @@ pipeline {
         }
         stage('Build and Test'){
             steps{
-                sh 'docker build . -t praveenkumar2504/myimage:latest'
+                sh 'docker build . -t praveenkumar2504/task:latest'
             }
         }
         stage('Push'){
             steps{
                 
         	     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                 sh 'docker push praveenkumar2504/myimage:latest'
+                 sh 'docker push praveenkumar2504/task:latest'
 
             }
         }
