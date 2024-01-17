@@ -9,7 +9,7 @@ pipeline {
     stages{
         stage('Code'){
             steps{
-                git url: https://github.com/Praveen-Dev0ps/node-todo-cicd-master-jenkins.git 
+                git url: 'https://github.com/Praveen-Dev0ps/node-todo-cicd-master-jenkins.git' 
             }
         }
         stage('Build and Test'){
